@@ -14,9 +14,12 @@
     margin-top: 2rem;
 }
 
-.search {
-    position:absolute;
-    left: 2rem;
+.weather img {
+    max-width: 20%;
+    margin-top: 5px;
+}
+
+.search-bar {
     margin-top: 2rem;
 }
 
@@ -44,5 +47,5 @@
 }
 
 .weather-forecast-icon {
-    max-width: 50%;
+    max-width: 30%;
 }
