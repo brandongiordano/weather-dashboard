@@ -3,6 +3,7 @@ var cityEl = $("#city-name");
 var tempEl = $("#city-temp");
 var humidEl = $("#city-humid");
 var windEl = $("#wind-speed");
+var iconEl = $("#weather-icon");
 var searchCityEl = $("#search-input");
 var lat = 40.7831;
 var lon = -73.9712;
@@ -34,6 +35,8 @@ var displayWeather = function (data) {
     $(tempEl).append(Math.round((data.list[0].main.temp - 273.15) * 1.80 + 32) + "°F");
     $(humidEl).append(data.list[0].main.humidity + "%");
     $(windEl).append(data.list[0].wind.speed + " km/h");
+    $(iconEl).attr({"src": "http://openweathermap.org/img/wn/" + data.list[0].weather.icon + ".png",
+    "height": "100px", "width":"100px"});
 }
 
 
