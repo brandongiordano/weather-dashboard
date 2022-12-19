@@ -1,51 +1,17 @@
-.weather-today {
-    justify-content: center;
-    text-align: center;
-    display: flex;
-    height: 60vh;
-    margin: 0;
+#header { 
+    background: linear-gradient(45deg, #4b6cb7 0%, #182848 100%);
+    color: azure;
 }
 
-.weather {
-    border: 5px black;
-    border-style: solid;
-    height: 40vh;
-    width: 40vw;
-    margin-top: 2rem;
+#forecast-cards > div {
+    background: linear-gradient(45deg, #4b6cb7 0%, #274175 100%);
 }
 
-.weather img {
-    max-width: 20%;
-    margin-top: 5px;
+#btn {
+    background :#4b6cb7 !important;
 }
 
-.search-bar {
-    margin-top: 2rem;
-}
-
-#cities li {
-    background: grey;
-    border-radius: 2px;
-    margin-top: 1rem;
-    list-style: none;
-}
-
-.header {
-    padding: 15px;
-    text-align: center;
-    background: #581abc;
-    color: white;
-    font-size: 20px;
-}
-
-.weather-forecast {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2px;
-}
-
-.weather-forecast-icon {
-    max-width: 30%;
+#btn:hover {
+    background :#4c6cb7 !important;
+    opacity: .9;
 }
