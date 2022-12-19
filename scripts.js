@@ -4,10 +4,8 @@ var tempEl = $("#current-temp");
 var humidEl = $("#current-humid");
 var windEl = $("#wind-speed");
 var iconEl = $("#weather-icon");
-//var searchButton = $("#search-button");
-//var searchFormEl = document.querySelector('#search-bar');
-//var searchedCity = document.querySelector("#search-input").value;
-var searchedCity = "Boston"
+var citySearchEl = document.querySelector("#city-search");
+//var searchedCity = document.querySelector("#city-search").value;
 //var cityLat = (cityData.coord.lat);
 var cityLat = 40.7831;
 //var cityLon = (cityData.coord.lon);
@@ -18,7 +16,9 @@ var APIKey="c1cca8b9a19bd1602dafeedbadde768a";
 var today = dayjs().format('M/D/YYYY');
 $('#todays-date').text(today);
 
-function getCity() {
+function getCity(event) {
+    var searchedCity = document.querySelector("#city-search").value;
+
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=" + APIKey;
 
     fetch(requestUrl)
@@ -58,11 +58,11 @@ displayWeather = function (data) {
     $(tempEl).append(Math.round((data.list[0].main.temp - 273.15) * 1.80 + 32) + "°F");
     $(humidEl).append(data.list[0].main.humidity + "%");
     $(windEl).append(data.list[0].wind.speed + " km/h");
-    var weatherIcon = (data.list[0].weather.icon);
-    var iconUrl = "http://openweathermap.org/img/wn/" + weatherIcon + ".png";
+    var weatherIcon = (data.list[0].weather[0].icon);
+    var iconUrl = "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
     $(cityEl).append("<img src=" + iconUrl + ">");
-    console.log(weatherIcon);
 
+    //looping through getting forecast data
     for (i=0;i<5;i++){
         var date = new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
         var iconCode = data.list[((i+1)*8)-1].weather[0].icon;
@@ -82,4 +82,4 @@ displayWeather = function (data) {
 }
 
 weather.fetchWeather();
-getCity();
+$("#btn").on("click", getCity);
