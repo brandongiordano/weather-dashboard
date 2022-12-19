@@ -15,3 +15,7 @@
     background :#4c6cb7 !important;
     opacity: .9;
 }
+
+.list-group > li {
+    text-transform: uppercase;
+}

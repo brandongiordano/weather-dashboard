@@ -5,18 +5,21 @@ var humidEl = $("#current-humid");
 var windEl = $("#wind-speed");
 var iconEl = $("#weather-icon");
 var citySearchEl = document.querySelector("#city-search");
-//var searchedCity = document.querySelector("#city-search").value;
 //var cityLat = (cityData.coord.lat);
 var cityLat = 40.7831;
 //var cityLon = (cityData.coord.lon);
 var cityLon = -73.9712;
 var APIKey="c1cca8b9a19bd1602dafeedbadde768a";
+var cities="";
 
 //display current date
 var today = dayjs().format('M/D/YYYY');
 $('#todays-date').text(today);
 
+
+
 function getCity(event) {
+    event.preventDefault();
     var searchedCity = document.querySelector("#city-search").value;
 
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=" + APIKey;
@@ -28,12 +31,22 @@ function getCity(event) {
         .then(function (cityData) {
             getCoords(cityData)
         });
+
+        //adds searched city to a history list
+        function addToHistory() {
+            var historyEl = $("<li>" + searchedCity + "</li>");
+            $(".list-group").append(historyEl);
+            $(historyEl).attr("class","list-group-item");
+        }
+        addToHistory();
 }
 
 getCoords = function (cityData) {
     console.log(cityData);
-
-
+    var latd = cityData.coord.lat;
+    var lotd = cityData.coord.lon;
+    console.log(latd);
+    console.log(lotd);
 }
 
 //get weather function
@@ -48,6 +61,7 @@ let weather = {
         });
     }
 };
+
 
 //fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity + ",US&limit=5&appid=" + APIKey)
 
