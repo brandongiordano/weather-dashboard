@@ -45,16 +45,18 @@ displayWeather = function (data) {
 //get future forecasts
 forecast = function(data) {
     for (i=0;i<5;i++){
-        var date= new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
-        var iconCode= data.list[((i+1)*8)-1].weather[0].icon;
-        var iconurl="https://openweathermap.org/img/wn/"+iconCode+".png";
-        var tempK= data.list[((i+1)*8)-1].main.temp;
-        var tempF=(((tempK-273.5)*1.80)+32).toFixed(2);
-        var humidity= data.list[((i+1)*8)-1].main.humidity;
+        var date = new Date((data.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
+        var iconCode = data.list[((i+1)*8)-1].weather[0].icon;
+        var iconurl ="https://openweathermap.org/img/wn/"+iconCode+".png";
+        var tempK = data.list[((i+1)*8)-1].main.temp;
+        var tempF =(((tempK-273.5)*1.80)+32).toFixed(2);
+        var humidity = data.list[((i+1)*8)-1].main.humidity;
+        var windF = (data.list[i].wind.speed + " km/h")
     
         $("#date"+i).append(date);
         $("#img"+i).append("<img src="+iconurl+">");
         $("#temp"+i).append(tempF+"°F");
+        $("#wind"+i).append(windF);
         $("#humidity"+i).append(humidity+"%");
     }
 }
