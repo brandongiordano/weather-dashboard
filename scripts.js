@@ -37,15 +37,23 @@ function getCity(event) {
             var historyEl = $("<li>" + searchedCity + "</li>");
             $(".list-group").append(historyEl);
             $(historyEl).attr("class","list-group-item");
+            $(historyEl).attr("data-value", searchedCity);
             cityHistory.push(searchedCity);
             localStorage.setItem("cityHistory", JSON.stringify(cityHistory))
-            console.log(cityHistory);
         }
         addToHistory();
 }
 
+function pastSearch(event){
+    var liEl=event.target;
+    if (event.target.matches("li")){
+        searchedCity=liEl.textContent.trim();
+        getCity(searchedCity);
+    }
+
+}
+
 getCoords = function (cityData) {
-    console.log(cityData);
     var latd = cityData.coord.lat;
     var lotd = cityData.coord.lon;
     getForecast(latd, lotd);
@@ -69,7 +77,6 @@ weather.fetchWeather();
 
 //populating text fields
 displayWeather = function (data) {
-    console.log(data);
     $(cityEl).html(data.city.name);
     $(tempEl).html(Math.round((data.list[0].main.temp - 273.15) * 1.80 + 32) + "°F");
     $(humidEl).html(data.list[0].main.humidity + "%");
@@ -96,9 +103,5 @@ displayWeather = function (data) {
         $("#humidity"+i).html(humidity+"%");
     }
 }
-
-//checks local storage for search history
-//function checkHistory() {}
-
 
 $("#btn").on("click", getCity);
