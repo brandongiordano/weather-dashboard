@@ -5,10 +5,6 @@ var humidEl = $("#current-humid");
 var windEl = $("#wind-speed");
 var iconEl = $("#weather-icon");
 var citySearchEl = document.querySelector("#city-search");
-//var cityLat = (cityData.coord.lat);
-var cityLat; 
-//var cityLon = (cityData.coord.lon);
-var cityLon;
 var APIKey="c1cca8b9a19bd1602dafeedbadde768a";
 var cityHistory = [];
 
@@ -17,10 +13,14 @@ var today = dayjs().format('M/D/YYYY');
 $('#todays-date').text(today);
 
 
-
+//gets city data from the city search
 function getCity(event) {
     event.preventDefault();
     var searchedCity = document.querySelector("#city-search").value;
+    //cancels fetch if search empty
+    if (searchedCity == "") {
+        return;
+    }
 
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=" + APIKey;
 
@@ -44,15 +44,7 @@ function getCity(event) {
         addToHistory();
 }
 
-function pastSearch(event){
-    var liEl=event.target;
-    if (event.target.matches("li")){
-        searchedCity=liEl.textContent.trim();
-        getCity(searchedCity);
-    }
-
-}
-
+//gets coordinates from data provided by the getCity function
 getCoords = function (cityData) {
     var latd = cityData.coord.lat;
     var lotd = cityData.coord.lon;
@@ -104,4 +96,27 @@ displayWeather = function (data) {
     }
 }
 
+//creates history list from stored history
+renderHistory = function() {
+    for (var i = 0; i < cityHistory.length; i++) {
+        var city = cityHistory[i];
+        var historyEl = $("<li>" + city + "</li>");
+        $(".list-group").append(historyEl);
+        $(historyEl).attr("class","list-group-item");
+        $(historyEl).attr("data-value", city);
+    }
+}
+
+getHistory = function() {
+    var storedCities = JSON.parse(localStorage.getItem("cityHistory"));
+    if (storedCities !== null) {
+        cityHistory = storedCities;
+    }
+
+    console.log(cityHistory);
+
+    renderHistory();
+}
+
 $("#btn").on("click", getCity);
+getHistory();
