@@ -23,4 +23,5 @@
 .list-group-item:hover {
     background :#a4b6e0 !important;
     opacity: .9;
+    cursor: pointer;
 }
