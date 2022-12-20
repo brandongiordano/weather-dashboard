@@ -44,6 +44,21 @@ function getCity(event) {
         addToHistory();
 }
 
+function getCityAgain(event) {
+    event.preventDefault();
+    var clickedCity = event.target.textContent;
+    
+    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + clickedCity + "&appid=" + APIKey;
+
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (cityData) {
+            getCoords(cityData)
+        });
+}
+
 //gets coordinates from data provided by the getCity function
 getCoords = function (cityData) {
     var latd = cityData.coord.lat;
@@ -120,3 +135,4 @@ getHistory = function() {
 
 $("#btn").on("click", getCity);
 getHistory();
+$(document).on("click",getCityAgain);
